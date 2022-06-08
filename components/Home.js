@@ -11,13 +11,14 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { FlatList } from "react-native";
 
 Feather.loadFont();
 MaterialCommunityIcons.loadFont();
 
-export default function Home() {
+export default function Home({ navigation }) {
   const rendercategoriesItem = ({ item }) => {
     return (
       <View
@@ -95,49 +96,54 @@ export default function Home() {
 
         {/* Popular */}
         <View style={styles.popularhead}>
-          <Text style={styles.populartitle}>Popular</Text>
+          <Text style={styles.populartitle}>Popular0000</Text>
           {popularData.map((item) => (
-            <View
-              style={[
-                styles.popularcard,
-                {
-                  marginTop: item.id == 1 ? 10 : 20,
-                },
-              ]}
-            >
-              <View>
+            <TouchableOpacity key={item.id} onPress={() => navigation.navigate('Details', {
+              item: item,
+            })} >
+              <View
+                
+                style={[
+                  styles.popularcard,
+                  {
+                    marginTop: item.id == 1 ? 10 : 20,
+                  },
+                ]}
+              >
                 <View>
-                  <View style={styles.populartop}>
-                    <MaterialCommunityIcons
-                      name="crown"
-                      size={12}
-                      color={colors.primary}
-                    />
-                    <Text style={styles.populartext}>top of the week</Text>
+                  <View>
+                    <View style={styles.populartop}>
+                      <MaterialCommunityIcons
+                        name="crown"
+                        size={12}
+                        color={colors.primary}
+                      />
+                      <Text style={styles.populartext}>top of the week</Text>
+                    </View>
+                    <View style={styles.populartitle2}>
+                      <Text style={styles.populartitleItem}>{item.title}</Text>
+                      <Text style={styles.popularweight}>
+                        Weight {item.weight}{" "}
+                      </Text>
+                    </View>
                   </View>
-                  <View style={styles.populartitle2}>
-                    <Text style={styles.populartitleItem}>{item.title}</Text>
-                    <Text style={styles.popularweight}>
-                      Weight {item.weight}{" "}
-                    </Text>
+                  <View style={styles.popularbottom}>
+                    <View style={styles.addpizza}>
+                      <Feather name="plus" size={10} />
+                    </View>
+                    <View style={styles.ratingwrap}>
+                      <MaterialCommunityIcons name="star" size={10} />
+                      <Text style={styles.ratingtext}>{item.rating}</Text>
+                    </View>
                   </View>
                 </View>
-                <View style={styles.popularbottom}>
-                  <View style={styles.addpizza}>
-                    <Feather name="plus" size={10} />
-                  </View>
-                  <View style={styles.ratingwrap}>
-                    <MaterialCommunityIcons name="star" size={10} />
-                    <Text style={styles.ratingtext}>{item.rating}</Text>
+                <View>
+                  <View style={styles.popularRigth}>
+                    <Image source={item.image} style={styles.popularImge} />
                   </View>
                 </View>
               </View>
-              <View>
-                <View style={styles.popularRigth}>
-                  <Image source={item.image} style={styles.popularImge} />
-                </View>
-              </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
